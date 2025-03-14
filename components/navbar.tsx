@@ -26,18 +26,25 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Bell, Menu, Moon, Search, Sun } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
+import { useSession } from 'next-auth/react'
+import SignIn from "./SignIn";
+
 
 export default function Navbar() {
+
   const pathname = usePathname();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const { theme, setTheme } = useTheme();
-  const isLoggedIn = true; // This would be determined by your auth state
+  const {data : session} = useSession();
+
 
   return (
+
     <header
       className="sticky flex justify-center top-0 z-50 w-full border-b bg-background/95 backdrop-blur 
 			supports-[backdrop-filter]:bg-background/60"
     >
+
       <div className="container flex h-16 items-center px-4">
         <Sheet>
           <SheetTrigger asChild>
@@ -104,12 +111,16 @@ export default function Navbar() {
             </nav>
           </SheetContent>
         </Sheet>
+
+
         <Link href="/" className="mr-6 flex items-center space-x-2">
           <span className="h-7 w-7 rounded-full bg-primary flex items-center justify-center">
             <span className="text-primary-foreground font-bold">P</span>
           </span>
           <span className="font-bold inline-block">ProjectHub</span>
         </Link>
+
+
         <NavigationMenu className="hidden md:flex">
           <NavigationMenuList>
             <NavigationMenuItem>
@@ -262,6 +273,8 @@ export default function Navbar() {
           </NavigationMenuList>
         </NavigationMenu>
 
+
+
         <div className="flex items-center ml-auto gap-2">
           {isSearchOpen ? (
             <div className="relative">
@@ -298,7 +311,7 @@ export default function Navbar() {
             <span className="sr-only">Toggle theme</span>
           </Button>
 
-          {isLoggedIn ? (
+          {session ? (
             <>
               <Button variant="ghost" size="icon" className="relative">
                 <Bell className="h-5 w-5" />
@@ -354,15 +367,22 @@ export default function Navbar() {
           ) : (
             <div className="flex items-center gap-2">
               <Button variant="ghost" asChild>
-                <Link href="/login">Log in</Link>
+                
+                {/* <button onClick={() => signIn()}>Sign Inn</button> */}
+                <SignIn/>
               </Button>
-              <Button asChild>
+              {/* <Button asChild>
                 <Link href="/register">Sign up</Link>
-              </Button>
+              </Button> */}
             </div>
           )}
         </div>
       </div>
+
+      
     </header>
+
+  
+
   );
 }

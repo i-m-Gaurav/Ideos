@@ -22,7 +22,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
 import { Calendar, Clock, Code, ExternalLink, Flag, Heart, MessageSquare, Share2, Users } from "lucide-react"
-import Navbar from "@/components/navbar"
+
 
 export default function ProjectPage({ params }) {
   const [liked, setLiked] = useState(false)
@@ -142,7 +142,7 @@ export default function ProjectPage({ params }) {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <Navbar />
+     
       <main className="flex-1">
         <div className="container px-4 py-6 md:py-10">
           <div className="grid gap-6 lg:grid-cols-3">

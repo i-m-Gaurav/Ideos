@@ -21,7 +21,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { X } from "lucide-react"
-import Navbar from "@/components/navbar"
+
 
 export default function NewProjectPage() {
   const [title, setTitle] = useState("")
@@ -66,7 +66,6 @@ export default function NewProjectPage() {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <Navbar />
       <main className="flex justify-center w-full">
         <div className="container px-4 py-6 md:py-10">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">

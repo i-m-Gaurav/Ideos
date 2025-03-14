@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Separator } from "@/components/ui/separator"
 import { Calendar, Github, Globe, Linkedin, Mail, MapPin, Twitter } from "lucide-react"
-import Navbar from "@/components/navbar"
+
 
 export default function ProfilePage({ params }) {
   // In a real app, you would fetch the user data based on the ID
@@ -79,7 +79,7 @@ export default function ProfilePage({ params }) {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <Navbar />
+     
       <main className="flex-1">
         <div className="container px-4 py-6 md:py-10">
           <div className="grid gap-6 lg:grid-cols-3">
