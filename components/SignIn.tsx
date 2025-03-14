@@ -1,7 +1,6 @@
 "use client";
 
 import { signIn } from "next-auth/react";
-import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button"
 
 export default function SignIn() {
@@ -11,10 +10,10 @@ export default function SignIn() {
   };
 
   return (
-    <Avatar>
-      <Button variant="ghost" asChild onClick={handleButtonClick}>
-        <SignIn />
+ 
+      <Button variant="ghost" onClick={handleButtonClick}>
+        Log In
       </Button>
-    </Avatar>
+   
   );
 }
