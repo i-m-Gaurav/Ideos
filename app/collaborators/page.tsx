@@ -1,4 +1,3 @@
-
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
@@ -17,11 +16,23 @@ import {
 } from "@/components/ui/select"
 import { Filter, Search, Star } from "lucide-react"
 
+interface Collaborator {
+  id: string;
+  name: string;
+  role: string;
+  bio: string;
+  skills: string[];
+  avatar: string;
+  initials: string;
+  projects: number;
+  collaborations: number;
+  featured: boolean;
+}
 
 export default function CollaboratorsPage() {
   return (
     <div className="flex min-h-screen flex-col">
-     
+
       <main className="flex-1">
         <div className="container px-4 py-6 md:py-10">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
@@ -114,7 +125,7 @@ export default function CollaboratorsPage() {
   )
 }
 
-function CollaboratorCard({ collaborator }) {
+function CollaboratorCard({ collaborator }: { collaborator: Collaborator }) {
   return (
     <Card className="h-full overflow-hidden transition-all hover:shadow-lg">
       <CardHeader className="p-6">
@@ -181,6 +192,7 @@ const collaborators = [
     name: "Samantha Lee",
     role: "Designer",
     bio: "UI/UX designer focused on creating beautiful, intuitive interfaces. I love collaborating on projects that have a positive impact on users' lives.",
+    skills: ["UI/UX Design", "Figma", "Adobe XD", "User Research"],
     avatar: "/placeholder.svg?height=48&width=48",
     initials: "SL",
     projects: 6,
