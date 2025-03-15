@@ -1,9 +1,37 @@
 import NextAuth from "next-auth"
-import { PrismaAdapter } from "@auth/prisma-adapter"
 import Google from "next-auth/providers/google"
-import { prisma } from "@/prisma"
+import { prisma }  from "./prisma"
+
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  adapter: PrismaAdapter(prisma),
   providers: [Google],
+  callbacks: {
+    async signIn({ user }) {
+      try {
+        const { email, name } = user;
+
+        // Ensure email exists
+        if (!email) {
+          throw new Error("Email not available from Google profile");
+        }
+
+        // Check if admin exists, otherwise create it
+        const admin = await prisma.user.upsert({
+          where: { email },
+          update: {}, // No changes if the user exists
+          create: {
+            email,
+            name: name || "Unknown", // Default name if not provided
+          },
+        });
+
+        console.log("Admin record:", admin);
+        return true;
+      } catch (error) {
+        console.error("Error during sign-in:", error);
+        return false;
+      }
+    },
+  },
 })
+

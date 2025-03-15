@@ -141,9 +141,9 @@ export default function ProjectPage({ params }) {
   }
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen  flex-col">
      
-      <main className="flex-1">
+      <main className="flex justify-center">
         <div className="container px-4 py-6 md:py-10">
           <div className="grid gap-6 lg:grid-cols-3">
             <div className="lg:col-span-2 space-y-6">
@@ -471,7 +471,7 @@ export default function ProjectPage({ params }) {
                     </div>
                   </div>
                   <p className="text-sm text-muted-foreground">{project.author.bio}</p>
-                  <div className="flex gap-2">
+                  <div className="flex bg-red-500">
                     <Button variant="outline" size="sm" className="w-full">
                       View Profile
                     </Button>

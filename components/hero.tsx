@@ -9,10 +9,9 @@ import { ArrowRight, Code, Flame, Heart, MessageSquare, Plus, Sparkles, Users } 
 const Hero = () => {
   return (
     <>
-      <main className="flex justify-center items-center flex-col">
-        <p>this is test for formatting</p>
-        <p>hello </p>
-        <section className="w-full flex justify-center py-12 md:py-24 lg:py-32 bg-gradient-to-b from-background to-muted">
+    <main className="flex justify-center items-center flex-col">
+
+    <section className="w-full flex justify-center py-12 md:py-24 lg:py-32 bg-gradient-to-b from-background to-muted">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
@@ -272,7 +271,7 @@ const Hero = () => {
         </section>
 
 
-      </main>
+    </main>
 
 
     </>
@@ -282,56 +281,56 @@ const Hero = () => {
 export default Hero
 
 const trendingProjects = [
-  {
-    id: "1",
-    title: "AI-Powered Recipe Generator",
-    category: "Web Application",
-    description:
-      "Building an application that generates personalized recipes based on available ingredients, dietary restrictions, and nutritional goals using machine learning algorithms.",
-    techStack: ["React", "Node.js", "TensorFlow", "MongoDB"],
-    trending: true,
-    author: {
-      name: "Alex Johnson",
-      avatar: "/placeholder.svg?height=32&width=32",
-      initials: "AJ",
+    {
+      id: "1",
+      title: "AI-Powered Recipe Generator",
+      category: "Web Application",
+      description:
+        "Building an application that generates personalized recipes based on available ingredients, dietary restrictions, and nutritional goals using machine learning algorithms.",
+      techStack: ["React", "Node.js", "TensorFlow", "MongoDB"],
+      trending: true,
+      author: {
+        name: "Alex Johnson",
+        avatar: "/placeholder.svg?height=32&width=32",
+        initials: "AJ",
+      },
+      likes: 128,
+      comments: 32,
+      collaborators: 5,
     },
-    likes: 128,
-    comments: 32,
-    collaborators: 5,
-  },
-  {
-    id: "2",
-    title: "Sustainable Smart Home System",
-    category: "IoT",
-    description:
-      "Creating an integrated smart home system focused on energy efficiency and sustainability, with solar integration and intelligent power management.",
-    techStack: ["Arduino", "Python", "React Native", "AWS"],
-    trending: true,
-    author: {
-      name: "Samantha Lee",
-      avatar: "/placeholder.svg?height=32&width=32",
-      initials: "SL",
+    {
+      id: "2",
+      title: "Sustainable Smart Home System",
+      category: "IoT",
+      description:
+        "Creating an integrated smart home system focused on energy efficiency and sustainability, with solar integration and intelligent power management.",
+      techStack: ["Arduino", "Python", "React Native", "AWS"],
+      trending: true,
+      author: {
+        name: "Samantha Lee",
+        avatar: "/placeholder.svg?height=32&width=32",
+        initials: "SL",
+      },
+      likes: 95,
+      comments: 24,
+      collaborators: 3,
     },
-    likes: 95,
-    comments: 24,
-    collaborators: 3,
-  },
-  {
-    id: "3",
-    title: "Decentralized Marketplace",
-    category: "Blockchain",
-    description:
-      "Building a peer-to-peer marketplace using blockchain technology for secure, transparent transactions without intermediaries.",
-    techStack: ["Solidity", "Ethereum", "Next.js", "IPFS"],
-    trending: false,
-    author: {
-      name: "Marcus Chen",
-      avatar: "/placeholder.svg?height=32&width=32",
-      initials: "MC",
+    {
+      id: "3",
+      title: "Decentralized Marketplace",
+      category: "Blockchain",
+      description:
+        "Building a peer-to-peer marketplace using blockchain technology for secure, transparent transactions without intermediaries.",
+      techStack: ["Solidity", "Ethereum", "Next.js", "IPFS"],
+      trending: false,
+      author: {
+        name: "Marcus Chen",
+        avatar: "/placeholder.svg?height=32&width=32",
+        initials: "MC",
+      },
+      likes: 87,
+      comments: 19,
+      collaborators: 4,
     },
-    likes: 87,
-    comments: 19,
-    collaborators: 4,
-  },
-]
-
+  ]
+  
