@@ -35,7 +35,7 @@ export default function NewProjectPage() {
   const [repoUrl, setRepoUrl] = useState("")
   const [demoUrl, setDemoUrl] = useState("")
 
-  const handleAddTech = (e) => {
+  const handleAddTech = (e: React.FormEvent) => {
     e.preventDefault()
     if (techInput.trim() && !techStack.includes(techInput.trim())) {
       setTechStack([...techStack, techInput.trim()])

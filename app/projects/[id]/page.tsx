@@ -471,7 +471,7 @@ export default function ProjectPage({ params }) {
                     </div>
                   </div>
                   <p className="text-sm text-muted-foreground">{project.author.bio}</p>
-                  <div className="flex-1 w-full">
+                  <div className="flex-1 gap-4 w-full">
                     <Button variant="outline" size="sm" className="w-full">
                       View Profile
                     </Button>
