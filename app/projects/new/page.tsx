@@ -21,6 +21,8 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { X } from "lucide-react"
+import { Project } from "@/types/types"
+
 
 
 export default function NewProjectPage() {
@@ -47,20 +49,30 @@ export default function NewProjectPage() {
     setTechStack(techStack.filter((t) => t !== tech))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // In a real app, you would submit the form data to your backend
-    console.log({
-      title,
-      category,
-      description,
-      techStack,
-      requirements,
-      timeline,
-      teamSize,
-      repoUrl,
-      demoUrl,
+
+    const response = await fetch('/api/projects', {
+      method: "POST",
+      headers: { 'Content-Type': "application/json" },
+      body: JSON.stringify(FormData),
+
     })
+
+    //const data = await response.json();
+    //console.log(data);
+    // In a real app, you would submit the form data to your backend
+    // console.log({
+    // title,
+    // category,
+    //description,
+    //techStack,
+    //requirements,
+    //timeline,
+    //teamSize,
+    //repoUrl,
+    //demoUrl,
+    // })
     // Then redirect to the project page or show a success message
   }
 
