@@ -142,7 +142,7 @@ export default function ProjectPage({ params }) {
 
   return (
     <div className="flex min-h-screen  flex-col">
-     
+
       <main className="flex justify-center">
         <div className="container px-4 py-6 md:py-10">
           <div className="grid gap-6 lg:grid-cols-3">
@@ -471,7 +471,7 @@ export default function ProjectPage({ params }) {
                     </div>
                   </div>
                   <p className="text-sm text-muted-foreground">{project.author.bio}</p>
-                  <div className="flex bg-red-500">
+                  <div className="flex-1 w-full">
                     <Button variant="outline" size="sm" className="w-full">
                       View Profile
                     </Button>
