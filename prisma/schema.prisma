@@ -17,6 +17,11 @@ model User {
   updatedAt DateTime @updatedAt
 }
 
+model Projects {
+  id  String @id @default(uuid())
+  title String
+  category String
+}
 
 
 

@@ -22,6 +22,7 @@ import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { X } from "lucide-react"
 import { Project } from "@/types/types"
+import axios from 'axios'
 
 
 
@@ -36,6 +37,9 @@ export default function NewProjectPage() {
   const [teamSize, setTeamSize] = useState("")
   const [repoUrl, setRepoUrl] = useState("")
   const [demoUrl, setDemoUrl] = useState("")
+  const [formData, setFormData] = useState<Project>({ title: "", description: "", category: "" });
+  const [loading, setLoading] = useState(false);
+
 
   const handleAddTech = (e: React.FormEvent) => {
     e.preventDefault()
@@ -50,31 +54,39 @@ export default function NewProjectPage() {
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
+    setLoading(true);
 
-    const response = await fetch('/api/projects', {
-      method: "POST",
-      headers: { 'Content-Type': "application/json" },
-      body: JSON.stringify(FormData),
+    try {
+      const { data } = await axios.post('/api/projects', formData);
+      setFormData({ title: "", description: "", category: "" });
+      console.log("form data", data);
 
-    })
+    } catch (error) {
+      console.error("Error on sending project to the backend", error);
+    } finally {
+      setLoading(false);
+    }
 
-    //const data = await response.json();
-    //console.log(data);
-    // In a real app, you would submit the form data to your backend
-    // console.log({
-    // title,
-    // category,
-    //description,
-    //techStack,
-    //requirements,
-    //timeline,
-    //teamSize,
-    //repoUrl,
-    //demoUrl,
-    // })
-    // Then redirect to the project page or show a success message
-  }
+
+  };
+
+  //const data = await response.json();
+  //console.log(data);
+  // In a real app, you would submit the form data to your backend
+  // console.log({
+  // title,
+  // category,
+  //description,
+  //techStack,
+  //requirements,
+  //timeline,
+  //teamSize,
+  //repoUrl,
+  //demoUrl,
+  // })
+  // Then redirect to the project page or show a success message
+
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -330,6 +342,5 @@ export default function NewProjectPage() {
         </div>
       </main>
     </div>
-  )
+  );
 }
-

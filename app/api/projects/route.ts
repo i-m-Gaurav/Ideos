@@ -1,20 +1,29 @@
 import { NextRequest, NextResponse } from "next/server";
+import { Project } from '@/types/types'
+import { prisma } from '@/prisma'
 
-export default async function POST(req: NextRequest) {
 
+export async function POST(req: NextRequest) {
 	try {
-
 		const body = await req.json();
-		const { title, category } = body;
+		const { title, description, category }: Project = body;
 
-		console.log("data from project", { title, category });
+		const projects = await prisma.Projects.create({
 
-		return NextResponse.json({ title, category }, { status: 200 });
+			data: {
+				title,
+				description,
+				category,
+			},
+
+		});
 
 
+		return NextResponse.json({ success: true, message: "Project submitted", data: projects });
 
-	} catch (error) {
-		console.error("Error", error);
 	}
 
+	catch (error) {
+		console.error("Error on the backend", error);
+	}
 }
