@@ -7,7 +7,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
     async signIn({ user }) {
       try {
-        const { email, name, id } = user;
+        const { email, name, id, image } = user;
 
         // Ensure email exists
         if (!email) {
