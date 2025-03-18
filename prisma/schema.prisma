@@ -1,4 +1,3 @@
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -7,22 +6,20 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
- 
+
 model User {
-  id            String          @id @default(cuid())
-  name          String?
-  email         String          @unique
-  image         String?
+  id        String   @id @default(cuid())
+  name      String?
+  email     String   @unique
+  image     String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Projects {
-  id  String @id @default(uuid())
-  title String
-  category String
+  id          String @id @default(cuid())
+  title       String
+  description String
+  category    String
+  techStack   String[]
 }
-
-
-
- 
