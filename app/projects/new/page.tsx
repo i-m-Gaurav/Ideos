@@ -21,45 +21,68 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { X } from "lucide-react"
-import { Project } from "@/types/types"
-import axios from 'axios'
+import { Project, Tech } from "@/types/types"
+import axios from "axios"
+
+
 
 
 
 export default function NewProjectPage() {
-  const [title, setTitle] = useState("")
   const [category, setCategory] = useState("")
-  const [description, setDescription] = useState("")
   const [techInput, setTechInput] = useState("")
-  const [techStack, setTechStack] = useState([])
+  const [techStack, setTechStack] = useState<Tech[]>([])
   const [requirements, setRequirements] = useState("")
   const [timeline, setTimeline] = useState("")
   const [teamSize, setTeamSize] = useState("")
   const [repoUrl, setRepoUrl] = useState("")
   const [demoUrl, setDemoUrl] = useState("")
-  const [formData, setFormData] = useState<Project>({ title: "", description: "", category: "" });
+  const [formData, setFormData] = useState<Project>({ title: "", description: "", category: "", techStack: [] });
   const [loading, setLoading] = useState(false);
 
 
   const handleAddTech = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (techInput.trim() && !techStack.includes(techInput.trim())) {
-      setTechStack([...techStack, techInput.trim()])
-      setTechInput("")
+    e.preventDefault();
+    if (techInput.trim() && !techStack.some((t) => t.name === techInput.trim())) {
+      setTechStack([...techStack, { id: crypto.randomUUID(), name: techInput.trim() }]);
+      setTechInput("");
     }
-  }
+  };
 
-  const handleRemoveTech = (tech) => {
+
+  const handleRemoveTech = (tech: Tech) => {
     setTechStack(techStack.filter((t) => t !== tech))
   }
+
+  // this is sweet function
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  }
+
+  const handleCategoryChange = (value: string) => {
+    setCategory(value);
+    setFormData((prev) => ({ ...prev, category: value }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      const { data } = await axios.post('/api/projects', formData);
-      setFormData({ title: "", description: "", category: "" });
+
+      const projectData : Project = {
+        ...formData , 
+        techStack : techStack.map((tech) => tech.name),
+      }
+
+
+
+      
+      const { data } = await axios.post('/api/projects', projectData);
+
+      setFormData({ title: "", description: "", category: "", techStack: [] });
+      setTechStack([]);
       console.log("form data", data);
 
     } catch (error) {
@@ -67,25 +90,7 @@ export default function NewProjectPage() {
     } finally {
       setLoading(false);
     }
-
-
   };
-
-  //const data = await response.json();
-  //console.log(data);
-  // In a real app, you would submit the form data to your backend
-  // console.log({
-  // title,
-  // category,
-  //description,
-  //techStack,
-  //requirements,
-  //timeline,
-  //teamSize,
-  //repoUrl,
-  //demoUrl,
-  // })
-  // Then redirect to the project page or show a success message
 
 
   return (
@@ -117,15 +122,16 @@ export default function NewProjectPage() {
                       <Input
                         id="title"
                         placeholder="Enter a descriptive title for your project"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
+                        name="title"
+                        value={formData.title}
+                        onChange={handleChange}
                         required
                       />
                     </div>
 
                     <div className="space-y-2">
                       <Label htmlFor="category">Category</Label>
-                      <Select value={category} onValueChange={setCategory} required>
+                      <Select value={category} onValueChange={handleCategoryChange} required>
                         <SelectTrigger id="category">
                           <SelectValue placeholder="Select a category" />
                         </SelectTrigger>
@@ -153,8 +159,9 @@ export default function NewProjectPage() {
                         id="description"
                         placeholder="Describe your project idea, goals, and potential impact..."
                         className="min-h-[200px]"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
+                        value={formData.description}
+                        name="description"
+                        onChange={handleChange}
                         required
                       />
                     </div>
@@ -175,21 +182,26 @@ export default function NewProjectPage() {
                       {techStack.length > 0 && (
                         <div className="flex flex-wrap gap-2 mt-2">
                           {techStack.map((tech) => (
-                            <Badge key={tech} variant="secondary" className="flex items-center gap-1">
-                              {tech}
+                            <Badge key={tech.id} variant="secondary" className="flex items-center gap-1">
+                              {tech.name}
                               <button
                                 type="button"
                                 onClick={() => handleRemoveTech(tech)}
                                 className="ml-1 rounded-full hover:bg-muted"
                               >
                                 <X className="h-3 w-3" />
-                                <span className="sr-only">Remove {tech}</span>
+                                <span className="sr-only">Remove {tech.name}</span>
                               </button>
                             </Badge>
                           ))}
                         </div>
                       )}
                     </div>
+
+
+
+
+
 
                     <div className="space-y-2">
                       <Label htmlFor="requirements">Collaborator Requirements</Label>
