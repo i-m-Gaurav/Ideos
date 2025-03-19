@@ -2,12 +2,8 @@ export interface Project {
   title: string;
   category: string;
   description: string;
-  techStack : Tech[];
+  techStack : string[];
 }
 
-export interface Tech {
- 
-  name : string;
-}
 
 

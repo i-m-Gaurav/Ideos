@@ -21,7 +21,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { X } from "lucide-react"
-import { Project, Tech } from "@/types/types"
+import { Project } from "@/types/types"
 import axios from "axios"
 
 
@@ -31,7 +31,7 @@ import axios from "axios"
 export default function NewProjectPage() {
   const [category, setCategory] = useState("")
   const [techInput, setTechInput] = useState("")
-  const [techStack, setTechStack] = useState<Tech[]>([])
+  const [techStack, setTechStack] = useState<string[]>([])
   const [requirements, setRequirements] = useState("")
   const [timeline, setTimeline] = useState("")
   const [teamSize, setTeamSize] = useState("")
@@ -43,16 +43,15 @@ export default function NewProjectPage() {
 
   const handleAddTech = (e: React.FormEvent) => {
     e.preventDefault();
-    if (techInput.trim() && !techStack.some((t) => t.name === techInput.trim())) {
-      setTechStack([...techStack, { id: crypto.randomUUID(), name: techInput.trim() }]);
+    if (techInput.trim() && !techStack.includes(techInput.trim())) {
+      setTechStack([...techStack, techInput.trim()]);
       setTechInput("");
     }
   };
 
-
-  const handleRemoveTech = (tech: Tech) => {
-    setTechStack(techStack.filter((t) => t !== tech))
-  }
+  const handleRemoveTech = (tech: string) => {
+    setTechStack(techStack.filter((t) => t !== tech));
+  };
 
   // this is sweet function
 
@@ -71,17 +70,18 @@ export default function NewProjectPage() {
 
     try {
 
-      const projectData : Project = {
-        ...formData , 
-        techStack : techStack.map((tech) => tech.name),
-      }
+      const projectData: Project = {
+        ...formData,
+        techStack: techStack, // Already an array of strings
+      };
 
 
 
-      
+
       const { data } = await axios.post('/api/projects', projectData);
 
       setFormData({ title: "", description: "", category: "", techStack: [] });
+      // setFormData({title : ""});
       setTechStack([]);
       console.log("form data", data);
 
@@ -179,23 +179,28 @@ export default function NewProjectPage() {
                           Add
                         </Button>
                       </div>
+
+
                       {techStack.length > 0 && (
                         <div className="flex flex-wrap gap-2 mt-2">
                           {techStack.map((tech) => (
-                            <Badge key={tech.id} variant="secondary" className="flex items-center gap-1">
-                              {tech.name}
+                            <Badge key={tech} variant="secondary" className="flex items-center gap-1">
+                              {tech}
                               <button
                                 type="button"
                                 onClick={() => handleRemoveTech(tech)}
                                 className="ml-1 rounded-full hover:bg-muted"
                               >
                                 <X className="h-3 w-3" />
-                                <span className="sr-only">Remove {tech.name}</span>
+                                <span className="sr-only">Remove {tech}</span>
                               </button>
                             </Badge>
                           ))}
                         </div>
                       )}
+
+
+
                     </div>
 
 
