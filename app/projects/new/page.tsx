@@ -32,12 +32,12 @@ export default function NewProjectPage() {
   const [category, setCategory] = useState("")
   const [techInput, setTechInput] = useState("")
   const [techStack, setTechStack] = useState<string[]>([])
-  const [requirements, setRequirements] = useState("")
+  // const [requirements, setRequirements] = useState("")
   const [timeline, setTimeline] = useState("")
   const [teamSize, setTeamSize] = useState("")
   const [repoUrl, setRepoUrl] = useState("")
   const [demoUrl, setDemoUrl] = useState("")
-  const [formData, setFormData] = useState<Project>({ title: "", description: "", category: "", techStack: [] });
+  const [formData, setFormData] = useState<Project>({ title: "", description: "", category: "", techStack: [], requirements : "" });
   const [loading, setLoading] = useState(false);
 
 
@@ -54,7 +54,6 @@ export default function NewProjectPage() {
   };
 
   // this is sweet function
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   }
@@ -80,7 +79,7 @@ export default function NewProjectPage() {
 
       const { data } = await axios.post('/api/projects', projectData);
 
-      setFormData({ title: "", description: "", category: "", techStack: [] });
+      setFormData({ title: "", description: "", category: "", techStack: [] , requirements : "" });
       // setFormData({title : ""});
       setTechStack([]);
       console.log("form data", data);
@@ -214,8 +213,9 @@ export default function NewProjectPage() {
                         id="requirements"
                         placeholder="What skills or experience are you looking for in collaborators?"
                         className="min-h-[100px]"
-                        value={requirements}
-                        onChange={(e) => setRequirements(e.target.value)}
+                        name = "requirements"
+                        value={formData.requirements}
+                        onChange={handleChange}
                       />
                     </div>
 

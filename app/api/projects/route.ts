@@ -5,7 +5,7 @@ import { prisma } from '@/prisma';
 export async function POST(req: NextRequest) {
 	try {
 		const body = await req.json();
-		const { title, description, category, techStack }: Project = body;
+		const { title, description, category, techStack , requirements }: Project = body;
 
 		// Log the incoming data
 		console.log("data", { title, description, category, techStack });
@@ -16,7 +16,9 @@ export async function POST(req: NextRequest) {
 				title,
 				description,
 				category,
-				techStack: techStack, // Store techStack as array of strings
+				techStack: techStack, // This mf is special somehow
+				requirements
+
 			},
 		});
 

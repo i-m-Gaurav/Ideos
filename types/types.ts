@@ -3,6 +3,7 @@ export interface Project {
   category: string;
   description: string;
   techStack : string[];
+  requirements : string;
 }
 
 

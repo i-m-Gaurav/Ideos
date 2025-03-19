@@ -22,4 +22,5 @@ model Projects {
   description String
   category    String
   techStack   String[]
+  requirements String
 }
