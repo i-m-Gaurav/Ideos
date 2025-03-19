@@ -4,6 +4,10 @@ export interface Project {
   description: string;
   techStack : string[];
   requirements : string;
+  timeline : string;
+  teamSize : string;
+  repoUrl : string;
+  demoUrl : string;
 }
 
 

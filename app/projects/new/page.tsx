@@ -32,12 +32,11 @@ export default function NewProjectPage() {
   const [category, setCategory] = useState("")
   const [techInput, setTechInput] = useState("")
   const [techStack, setTechStack] = useState<string[]>([])
-  // const [requirements, setRequirements] = useState("")
   const [timeline, setTimeline] = useState("")
   const [teamSize, setTeamSize] = useState("")
-  const [repoUrl, setRepoUrl] = useState("")
-  const [demoUrl, setDemoUrl] = useState("")
-  const [formData, setFormData] = useState<Project>({ title: "", description: "", category: "", techStack: [], requirements : "" });
+  // const [repoUrl, setRepoUrl] = useState("")
+  // const [demoUrl, setDemoUrl] = useState("")
+  const [formData, setFormData] = useState<Project>({ title: "", description: "", category: "", techStack: [], requirements : "", timeline : "", teamSize : "", repoUrl : "", demoUrl : "" });
   const [loading, setLoading] = useState(false);
 
 
@@ -54,7 +53,7 @@ export default function NewProjectPage() {
   };
 
   // this is sweet function
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   }
 
@@ -62,6 +61,19 @@ export default function NewProjectPage() {
     setCategory(value);
     setFormData((prev) => ({ ...prev, category: value }));
   };
+
+  const handleTimelineChange = (value : string) => {
+    setTimeline(value);
+    setFormData((prev) => ({...prev, timeline : value}))
+  }
+
+  const handleTeamSizeChange = (value : string) => {
+    setTeamSize(value);
+    setFormData((prev)=> ({...prev, teamSize : value}))
+  }
+
+
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -79,11 +91,9 @@ export default function NewProjectPage() {
 
       const { data } = await axios.post('/api/projects', projectData);
 
-      setFormData({ title: "", description: "", category: "", techStack: [] , requirements : "" });
-      // setFormData({title : ""});
+      setFormData({ title: "", description: "", category: "", techStack: [] , requirements : "", timeline : "" , teamSize : "", repoUrl : "", demoUrl : "" });
       setTechStack([]);
       console.log("form data", data);
-
     } catch (error) {
       console.error("Error on sending project to the backend", error);
     } finally {
@@ -222,7 +232,7 @@ export default function NewProjectPage() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="timeline">Estimated Timeline</Label>
-                        <Select value={timeline} onValueChange={setTimeline}>
+                        <Select value={timeline} onValueChange={handleTimelineChange}>
                           <SelectTrigger id="timeline">
                             <SelectValue placeholder="Select timeline" />
                           </SelectTrigger>
@@ -239,7 +249,7 @@ export default function NewProjectPage() {
 
                       <div className="space-y-2">
                         <Label htmlFor="team-size">Team Size</Label>
-                        <Select value={teamSize} onValueChange={setTeamSize}>
+                        <Select value={teamSize} onValueChange={handleTeamSizeChange}>
                           <SelectTrigger id="team-size">
                             <SelectValue placeholder="Select team size" />
                           </SelectTrigger>
@@ -260,8 +270,9 @@ export default function NewProjectPage() {
                         <Input
                           id="repo-url"
                           placeholder="GitHub, GitLab, etc."
-                          value={repoUrl}
-                          onChange={(e) => setRepoUrl(e.target.value)}
+                          name = "repoUrl"
+                          value={formData.repoUrl}
+                          onChange={handleChange}
                         />
                       </div>
 
@@ -270,8 +281,9 @@ export default function NewProjectPage() {
                         <Input
                           id="demo-url"
                           placeholder="Link to prototype or demo"
-                          value={demoUrl}
-                          onChange={(e) => setDemoUrl(e.target.value)}
+                          name  = "demoUrl"
+                          value={formData.demoUrl}
+                          onChange={handleChange}
                         />
                       </div>
                     </div>

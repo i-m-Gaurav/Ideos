@@ -23,4 +23,8 @@ model Projects {
   category    String
   techStack   String[]
   requirements String
+  timeline String
+  teamSize String
+  repoUrl String
+  demoUrl String
 }

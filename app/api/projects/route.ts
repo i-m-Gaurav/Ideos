@@ -5,10 +5,10 @@ import { prisma } from '@/prisma';
 export async function POST(req: NextRequest) {
 	try {
 		const body = await req.json();
-		const { title, description, category, techStack , requirements }: Project = body;
+		const { title, description, category, techStack , requirements, timeline,teamSize, repoUrl,demoUrl }: Project = body;
 
-		// Log the incoming data
-		console.log("data", { title, description, category, techStack });
+		// Log the incoming data	
+		console.log("data", { title, description, category , techStack, requirements, timeline, teamSize, repoUrl, demoUrl});
 
 		// Create the project with techStack as an array of strings
 		const project = await prisma.projects.create({
@@ -17,7 +17,11 @@ export async function POST(req: NextRequest) {
 				description,
 				category,
 				techStack: techStack, // This mf is special somehow
-				requirements
+				requirements,
+				timeline,
+				teamSize,
+				repoUrl,
+				demoUrl
 
 			},
 		});
