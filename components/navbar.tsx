@@ -101,7 +101,7 @@ export default function Navbar() {
           <span className="h-7 w-7 rounded-full bg-primary flex items-center justify-center">
             <span className="text-primary-foreground font-bold">P</span>
           </span>
-          <span className="font-bold inline-block">ProjectHub</span>
+          <span className="font-bold inline-block">Ideos</span>
         </Link>
         <NavigationMenu className="hidden md:flex">
           <NavigationMenuList>

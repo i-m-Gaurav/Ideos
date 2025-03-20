@@ -1,17 +1,16 @@
 import React from 'react'
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { ArrowRight, Code, Flame, Heart, MessageSquare, Plus, Sparkles, Users } from "lucide-react"
+import { ArrowRight, Code, Plus, Sparkles, Users } from "lucide-react"
+import TrendingCard from '@/components/TrendingCard'
 
 const Hero = () => {
   return (
     <>
-    <main className="flex justify-center items-center flex-col">
+      <main className="flex justify-center items-center flex-col">
 
-    <section className="w-full flex justify-center py-12 md:py-24 lg:py-32 bg-gradient-to-b from-background to-muted">
+        <section className="w-full flex justify-center py-12 md:py-24 lg:py-32 bg-gradient-to-b from-background to-muted">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
@@ -57,63 +56,18 @@ const Hero = () => {
                 </p>
               </div>
             </div>
+
+
+
             <div className="grid grid-cols-1 gap-6 mt-8 md:grid-cols-2 lg:grid-cols-3">
               {trendingProjects.map((project) => (
                 <Link href={`/projects/${project.id}`} key={project.id} className="group">
-                  <Card className="h-full overflow-hidden transition-all hover:shadow-lg">
-                    <CardHeader className="p-6">
-                      <div className="flex justify-between items-start">
-                        <div className="space-y-1">
-                          <CardTitle className="group-hover:text-primary transition-colors">{project.title}</CardTitle>
-                          <CardDescription>{project.category}</CardDescription>
-                        </div>
-                        {project.trending && (
-                          <Badge variant="secondary" className="flex items-center gap-1">
-                            <Flame className="h-3 w-3 text-orange-500" />
-                            Trending
-                          </Badge>
-                        )}
-                      </div>
-                    </CardHeader>
-                    <CardContent className="p-6 pt-0">
-                      <p className="line-clamp-3 text-muted-foreground">{project.description}</p>
-                      <div className="flex flex-wrap gap-2 mt-4">
-                        {project.techStack.map((tech) => (
-                          <Badge key={tech} variant="outline">
-                            {tech}
-                          </Badge>
-                        ))}
-                      </div>
-                    </CardContent>
-                    <CardFooter className="p-6 border-t flex justify-between items-center">
-                      <div className="flex items-center space-x-4">
-                        <Avatar className="h-8 w-8">
-                          <AvatarImage src={project.author.avatar} alt={project.author.name} />
-                          <AvatarFallback>{project.author.initials}</AvatarFallback>
-                        </Avatar>
-                        <div>
-                          <p className="text-sm font-medium">{project.author.name}</p>
-                        </div>
-                      </div>
-                      <div className="flex items-center space-x-4 text-muted-foreground">
-                        <div className="flex items-center">
-                          <Heart className="h-4 w-4 mr-1" />
-                          <span className="text-sm">{project.likes}</span>
-                        </div>
-                        <div className="flex items-center">
-                          <MessageSquare className="h-4 w-4 mr-1" />
-                          <span className="text-sm">{project.comments}</span>
-                        </div>
-                        <div className="flex items-center">
-                          <Users className="h-4 w-4 mr-1" />
-                          <span className="text-sm">{project.collaborators}</span>
-                        </div>
-                      </div>
-                    </CardFooter>
-                  </Card>
+                  <TrendingCard project={project} /> {/* Pass the project prop */}
                 </Link>
               ))}
             </div>
+
+
             <div className="flex justify-center mt-8">
               <Button asChild variant="outline">
                 <Link href="/projects">
@@ -271,14 +225,15 @@ const Hero = () => {
         </section>
 
 
-    </main>
+      </main>
 
 
     </>
   )
 }
 
-export default Hero
+export default Hero;
+
 
 const trendingProjects = [
     {
@@ -334,3 +289,4 @@ const trendingProjects = [
     },
   ]
   
+
