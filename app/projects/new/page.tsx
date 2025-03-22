@@ -119,7 +119,7 @@ export default function NewProjectPage() {
             <div className="lg:col-span-2">
               <form onSubmit={handleSubmit}>
                 <Card>
-                  <CardHeader>
+<CardHeader>
                     <CardTitle>Project Details</CardTitle>
                     <CardDescription>
                       Provide information about your project idea to attract potential collaborators.
