@@ -19,6 +19,7 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
+  DropdownMenuLabel,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
@@ -29,6 +30,7 @@ import { useTheme } from "next-themes";
 import { useSession } from 'next-auth/react';
 import  SignIn  from "@/components/SignIn"
 import  SignOut  from "@/components/SignOut"
+import { Badge } from "@/components/ui/badge"
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -253,11 +255,87 @@ export default function Navbar() {
 
           {isLoggedIn ? (
             <>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon" className="relative">
                 <Bell className="h-5 w-5" />
                 <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-primary"></span>
                 <span className="sr-only">Notifications</span>
               </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-80" align="end" forceMount>
+                  <DropdownMenuLabel className="flex items-center justify-between">
+                    Notifications
+                    <Badge variant="outline" className="ml-1 text-xs">
+                      5 new
+                    </Badge>
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <div className="max-h-[300px] overflow-y-auto">
+                    <DropdownMenuItem className="flex flex-col items-start gap-1 p-4 cursor-default">
+                      <div className="flex w-full justify-between">
+                        <span className="font-medium">New collaboration request</span>
+                        <span className="text-xs text-muted-foreground">2h ago</span>
+                      </div>
+                      <p className="text-sm text-muted-foreground">
+                        Emily Rodriguez wants to join your project "AI-Powered Recipe Generator"
+                      </p>
+                      <div className="flex gap-2 mt-2">
+                        <Button size="sm" variant="outline">
+                          Decline
+                        </Button>
+                        <Button size="sm">Accept</Button>
+                      </div>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem className="flex flex-col items-start gap-1 p-4 cursor-default">
+                      <div className="flex w-full justify-between">
+                        <span className="font-medium">Project liked</span>
+                        <span className="text-xs text-muted-foreground">5h ago</span>
+                      </div>
+                      <p className="text-sm text-muted-foreground">
+                        David Chen liked your project "Ethical Fashion Marketplace"
+                      </p>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem className="flex flex-col items-start gap-1 p-4 cursor-default">
+                      <div className="flex w-full justify-between">
+                        <span className="font-medium">New comment</span>
+                        <span className="text-xs text-muted-foreground">1d ago</span>
+                      </div>
+                      <p className="text-sm text-muted-foreground">
+                        Michael Brown commented on your project "Community Garden Management"
+                      </p>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem className="flex flex-col items-start gap-1 p-4 cursor-default">
+                      <div className="flex w-full justify-between">
+                        <span className="font-medium">Project milestone completed</span>
+                        <span className="text-xs text-muted-foreground">2d ago</span>
+                      </div>
+                      <p className="text-sm text-muted-foreground">
+                        "Database Schema Finalization" milestone was completed in "Ethical Fashion Marketplace"
+                      </p>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem className="flex flex-col items-start gap-1 p-4 cursor-default">
+                      <div className="flex w-full justify-between">
+                        <span className="font-medium">New featured project</span>
+                        <span className="text-xs text-muted-foreground">3d ago</span>
+                      </div>
+                      <p className="text-sm text-muted-foreground">
+                        Your project "AI-Powered Recipe Generator" was featured on the homepage
+                      </p>
+                    </DropdownMenuItem>
+                  </div>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem asChild className="justify-center cursor-default">
+                    <Link href="/notifications" className="w-full text-center text-sm text-primary">
+                      View all notifications
+                    </Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+                </DropdownMenu>
 
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
